@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<records>
+  <record>
+    <cardType>Visa</cardType>
+    <cardNumber>4242424242424242</cardNumber>
+  </record>
+  <record>
+    <cardType>ERROR</cardType>
+    <cardNumber>1212121212121212</cardNumber>
+  </record>
+  <record>
+    <cardType>Master</cardType>
+    <cardNumber>5212123412341234</cardNumber>
+  </record>
+  <record>
+    <cardType>American Express</cardType>
+    <cardNumber>341234123412341</cardNumber>
+  </record>
+  <record>
+    <cardType>Discover</cardType>
+    <cardNumber>6011123412341234</cardNumber>
+  </record>
+</records>

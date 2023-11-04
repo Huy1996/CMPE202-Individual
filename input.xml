@@ -1,0 +1,27 @@
+<records>
+    <record>
+        <name>Huy</name>
+        <cardNumber>4242424242424242</cardNumber>
+        <expDate>08/2020</expDate>
+    </record>
+    <record>
+        <name>Huy</name>
+        <cardNumber>1212121212121212</cardNumber>
+        <expDate>08/2020</expDate>
+    </record>
+    <record>
+        <name>Huy</name>
+        <cardNumber>5212123412341234</cardNumber>
+        <expDate>08/2020</expDate>
+    </record>
+    <record>
+        <name>Huy</name>
+        <cardNumber>341234123412341</cardNumber>
+        <expDate>08/2020</expDate>
+    </record>
+    <record>
+        <name>Huy</name>
+        <cardNumber>6011123412341234</cardNumber>
+        <expDate>08/2020</expDate>
+    </record>
+</records>
