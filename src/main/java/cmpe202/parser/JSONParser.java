@@ -20,22 +20,34 @@ public class JSONParser implements Parser{
     private Map<String, String>[] entries;;
     private int currentIdx;
 
-    public JSONParser(FileReader reader, FileWriter writer){
+    public JSONParser(String input, String output){
         this.objectMapper = new ObjectMapper();
         this.objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
+//        try {
+//            JsonNode jsonNode = objectMapper.readTree(new FileReader(input));
+//            if (jsonNode.isArray()) {
+//                this.entries = objectMapper.convertValue(jsonNode, Map[].class);
+//            } else {
+//                this.entries = new Map[]{objectMapper.convertValue(jsonNode, Map.class)};
+//            }
+//            this.currentIdx = 0;
+//            this.writer = new FileWriter(output, false);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
         try {
-            JsonNode jsonNode = objectMapper.readTree(reader);
-            if (jsonNode.isArray()) {
-                this.entries = objectMapper.convertValue(jsonNode, Map[].class);
-            } else {
-                this.entries = new Map[]{objectMapper.convertValue(jsonNode, Map.class)};
+            JsonNode jsonNode = objectMapper.readTree(new FileReader(input));
+            if (jsonNode.has("cards") && jsonNode.get("cards").isArray()) {
+                JsonNode cards = jsonNode.get("cards");
+                this.entries = objectMapper.convertValue(cards, Map[].class);
             }
+
             this.currentIdx = 0;
+            this.writer = new FileWriter(output, false);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        this.writer = writer;
     }
     @Override
     public Map<String, String> readRecord() {
@@ -50,17 +62,19 @@ public class JSONParser implements Parser{
 
     @Override
     public void write(List<Map<String, String>> records) {
-        ArrayNode output = objectMapper.createArrayNode();
+        ArrayNode arrayNode = objectMapper.createArrayNode();
         try {
-            ObjectNode objectNode = objectMapper.createObjectNode();
             for (Map<String, String> record: records) {
+                ObjectNode objectNode = objectMapper.createObjectNode();
                 for (Map.Entry<String, String> entry : record.entrySet()) {
                     objectNode.put(entry.getKey(), entry.getValue());
                 }
-                output.add(objectNode);
+                arrayNode.add(objectNode);
             }
+            ObjectNode cardsNode = objectMapper.createObjectNode();
+            cardsNode.set("cards", arrayNode);
 
-            objectMapper.writeValue(writer, records);
+            objectMapper.writeValue(writer, cardsNode);
         } catch (IOException e) {
             e.printStackTrace();
         }

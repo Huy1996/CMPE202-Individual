@@ -28,34 +28,29 @@ public class XMLParser implements Parser{
     private final Document doc;
     private int currentRecordIndex;
 
-    public XMLParser(FileReader reader, FileWriter writer){
-        this.writer = writer;
+    public XMLParser(String input, String output){
         this.dbFactory = DocumentBuilderFactory.newInstance();
         try {
             this.dBuilder = dbFactory.newDocumentBuilder();
-            this.doc = dBuilder.parse(new InputSource(reader));
+            this.doc = dBuilder.parse(new InputSource(new FileReader(input)));
+            this.writer = new FileWriter(output, false);
         } catch (ParserConfigurationException | SAXException | IOException e) {
             throw new RuntimeException(e);
         }
         this.currentRecordIndex = 0;
-        try {
-            reader.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
     public Map<String, String> readRecord() {
-        NodeList recordList = doc.getElementsByTagName("record");
+        NodeList recordList = doc.getElementsByTagName("CARD");
         if (currentRecordIndex < recordList.getLength()) {
             Node recordNode = recordList.item(currentRecordIndex);
             if (recordNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element recordElement = (Element) recordNode;
                 Map<String, String> recordMap = new HashMap<>();
-                recordMap.put("name", recordElement.getElementsByTagName("name").item(0).getTextContent());
-                recordMap.put("cardNumber", recordElement.getElementsByTagName("cardNumber").item(0).getTextContent());
-                recordMap.put("expDate", recordElement.getElementsByTagName("expDate").item(0).getTextContent());
+                recordMap.put("cardHolderName", recordElement.getElementsByTagName("CARD_HOLDER_NAME").item(0).getTextContent());
+                recordMap.put("cardNumber", recordElement.getElementsByTagName("CARD_NUMBER").item(0).getTextContent());
+                recordMap.put("expirationDate", recordElement.getElementsByTagName("EXPIRATION_DATE").item(0).getTextContent());
                 currentRecordIndex++;
                 return recordMap;
             }
@@ -70,18 +65,20 @@ public class XMLParser implements Parser{
         try {
             docBuilder = docFactory.newDocumentBuilder();
             Document doc = docBuilder.newDocument();
-            Element rootElement = doc.createElement("records");
+            Element rootElement = doc.createElement("CARDS");
             doc.appendChild(rootElement);
 
             for (Map<String, String> record : records) {
-                Element recordElement = doc.createElement("record");
+                Element recordElement = doc.createElement("CARD");
                 rootElement.appendChild(recordElement);
 
-                for (Map.Entry<String, String> entry : record.entrySet()) {
-                    Element element = doc.createElement(entry.getKey());
-                    element.appendChild(doc.createTextNode(entry.getValue()));
-                    recordElement.appendChild(element);
-                }
+                Element cardNumber = doc.createElement("CARD_NUMBER");
+                cardNumber.appendChild(doc.createTextNode(record.get("cardNumber")));
+                recordElement.appendChild(cardNumber);
+
+                Element cardType = doc.createElement("CARD_TYPE");
+                cardType.appendChild(doc.createTextNode(record.get("cardType")));
+                recordElement.appendChild(cardType);
             }
             writeToFile(doc);
             writer.close();
@@ -95,6 +92,7 @@ public class XMLParser implements Parser{
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
         DOMSource source = new DOMSource(doc);
         StreamResult result = new StreamResult(writer);

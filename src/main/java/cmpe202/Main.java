@@ -1,12 +1,7 @@
 package cmpe202;
 
-import cmpe202.parser.CSVParser;
-import cmpe202.parser.JSONParser;
-import cmpe202.parser.XMLParser;
+import cmpe202.parser.*;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 public class Main {
@@ -16,42 +11,30 @@ public class Main {
             return;
         }
 
-        String filePath = args[0];
+        String input = args[0];
+        String ext = getFileExtension(input);
+        String output = input.replace("." + ext, "_output." + ext);
 
         FileProcessor processor = new FileProcessor();
-        String ext = getFileExtension(filePath);
 
-        FileReader reader;
-        FileWriter writer;
-        try {
-            reader = new FileReader(filePath);
-            writer = new FileWriter(filePath.replace("." + ext, "_output." + ext), false);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
 
         if (ext.equals("csv")) {
-            processor.setEngine(new CSVParser(reader, writer));
+            processor.setEngine(new CSVParser(input, output));
+            processor.setDtf(DateTimeFormatter.ofPattern("yy-MMM"));
+        }
+        else if (ext.equals("xlsx")) {
+            processor.setEngine(new XLSXParser(input, output));
             processor.setDtf(DateTimeFormatter.ofPattern("yy-MMM"));
         }
         else if (ext.equals("json")) {
-            processor.setEngine(new JSONParser(reader, writer));
+            processor.setEngine(new JSONParser(input, output));
             processor.setDtf(DateTimeFormatter.ofPattern("MM/yy"));
         }
         else if (ext.equals("xml")) {
-            processor.setEngine(new XMLParser(reader, writer));
+            processor.setEngine(new XMLParser(input, output));
             processor.setDtf(DateTimeFormatter.ofPattern("MM/yy"));
         }
         processor.processFile();
-
-        try {
-            reader.close();
-            writer.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
     }
 
     public static String getFileExtension(String filePath) {

@@ -1,23 +1,50 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<records>
-  <record>
-    <cardType>Visa</cardType>
-    <cardNumber>4242424242424242</cardNumber>
-  </record>
-  <record>
-    <cardType>ERROR</cardType>
-    <cardNumber>1212121212121212</cardNumber>
-  </record>
-  <record>
-    <cardType>Master</cardType>
-    <cardNumber>5212123412341234</cardNumber>
-  </record>
-  <record>
-    <cardType>American Express</cardType>
-    <cardNumber>341234123412341</cardNumber>
-  </record>
-  <record>
-    <cardType>Discover</cardType>
-    <cardNumber>6011123412341234</cardNumber>
-  </record>
-</records>
+<CARDS>
+  <CARD>
+    <CARD_NUMBER>5567894523129089</CARD_NUMBER>
+    <CARD_TYPE>Master</CARD_TYPE>
+  </CARD>
+  <CARD>
+    <CARD_NUMBER>59012345678901234567890</CARD_NUMBER>
+    <CARD_TYPE>invalid: more than 19 digits</CARD_TYPE>
+  </CARD>
+  <CARD>
+    <CARD_NUMBER>4123456789123</CARD_NUMBER>
+    <CARD_TYPE>Visa</CARD_TYPE>
+  </CARD>
+  <CARD>
+    <CARD_NUMBER>347856341908126</CARD_NUMBER>
+    <CARD_TYPE>American Express</CARD_TYPE>
+  </CARD>
+  <CARD>
+    <CARD_NUMBER>6011111100007756</CARD_NUMBER>
+    <CARD_TYPE>Discover</CARD_TYPE>
+  </CARD>
+  <CARD>
+    <CARD_NUMBER>3601112345678789</CARD_NUMBER>
+    <CARD_TYPE>invalid: not a possible card number</CARD_TYPE>
+  </CARD>
+  <CARD>
+    <CARD_NUMBER>5167894523129089</CARD_NUMBER>
+    <CARD_TYPE>Master</CARD_TYPE>
+  </CARD>
+  <CARD>
+    <CARD_NUMBER>4123456789123999</CARD_NUMBER>
+    <CARD_TYPE>Visa</CARD_TYPE>
+  </CARD>
+  <CARD>
+    <CARD_NUMBER>377856341908126</CARD_NUMBER>
+    <CARD_TYPE>American Express</CARD_TYPE>
+  </CARD>
+  <CARD>
+    <CARD_NUMBER>5367894523129089</CARD_NUMBER>
+    <CARD_TYPE>Master</CARD_TYPE>
+  </CARD>
+  <CARD>
+    <CARD_NUMBER>6011*890HJrt6789</CARD_NUMBER>
+    <CARD_TYPE>invalid: non numeric characters</CARD_TYPE>
+  </CARD>
+  <CARD>
+    <CARD_NUMBER/>
+    <CARD_TYPE>invalid: empty/null card number</CARD_TYPE>
+  </CARD>
+</CARDS>

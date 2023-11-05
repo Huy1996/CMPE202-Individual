@@ -18,6 +18,8 @@ package cmpe202.credit;
 
 class CardTypeDetector {
     public static CardType detectCardType(String cardNumber) {
+        if (cardNumber == null) return CardType.Unknown;
+
         if (cardNumber.matches("^4[0-9]{12}(?:[0-9]{3})?$")) {
             return CardType.Visa;
         } else if (cardNumber.matches("^5[1-5][0-9]{14}$")) {

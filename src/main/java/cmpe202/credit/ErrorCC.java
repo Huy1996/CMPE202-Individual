@@ -11,7 +11,7 @@ public class ErrorCC extends CreditCard{
     public String getCardType() { return "invalid: " + checkError(); }
 
     private String checkError() {
-        if (this.getCardNumber().isEmpty()) {
+        if (this.getCardNumber() == null || this.getCardNumber().isEmpty()) {
             return "empty/null card number";
         }
         if (this.getCardNumber().matches(".*\\D.*")) {

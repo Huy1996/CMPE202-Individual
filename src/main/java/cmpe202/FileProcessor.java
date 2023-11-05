@@ -25,7 +25,8 @@ public class FileProcessor {
         Map<String, String> entry;
         List<Map<String, String>> records = new ArrayList<>();
         while ((entry = engine.readRecord()) != null) {
-            CreditCard creditCard = factory.createCredit(entry.get("cardNumber"),
+            CreditCard creditCard = factory.createCredit(
+                    entry.get("cardNumber"),
                     YearMonth.parse(entry.get("expirationDate"), dtf),
                     entry.get("cardHolderName"));
             records.add(creditCard.toFile());

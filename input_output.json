@@ -1,16 +1,39 @@
-[ {
-  "cardType" : "Visa",
-  "cardNumber" : "4343434343434343"
-}, {
-  "cardType" : "ERROR",
-  "cardNumber" : "1212121212121212"
-}, {
-  "cardType" : "Master",
-  "cardNumber" : "5212123412341234"
-}, {
-  "cardType" : "American Express",
-  "cardNumber" : "341234123412341"
-}, {
-  "cardType" : "Discover",
-  "cardNumber" : "6011123412341234"
-} ]
+{
+  "cards" : [ {
+    "cardType" : "Master",
+    "cardNumber" : "5567894523129089"
+  }, {
+    "cardType" : "invalid: more than 19 digits",
+    "cardNumber" : "59012345678901234567890"
+  }, {
+    "cardType" : "Visa",
+    "cardNumber" : "4123456789123"
+  }, {
+    "cardType" : "American Express",
+    "cardNumber" : "347856341908126"
+  }, {
+    "cardType" : "Discover",
+    "cardNumber" : "6011111100007756"
+  }, {
+    "cardType" : "invalid: not a possible card number",
+    "cardNumber" : "3601112345678789"
+  }, {
+    "cardType" : "Master",
+    "cardNumber" : "5167894523129089"
+  }, {
+    "cardType" : "Visa",
+    "cardNumber" : "4123456789123999"
+  }, {
+    "cardType" : "American Express",
+    "cardNumber" : "377856341908126"
+  }, {
+    "cardType" : "Master",
+    "cardNumber" : "5367894523129089"
+  }, {
+    "cardType" : "invalid: non numeric characters",
+    "cardNumber" : "6011*890HJrt6789"
+  }, {
+    "cardType" : "invalid: empty/null card number",
+    "cardNumber" : null
+  } ]
+}

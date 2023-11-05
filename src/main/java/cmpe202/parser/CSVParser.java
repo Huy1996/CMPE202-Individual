@@ -3,6 +3,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,9 +20,14 @@ public class CSVParser implements Parser {
     private List<Map<String, String>> records;
     private int currentIdx;
 
-    public CSVParser(FileReader reader, FileWriter writer) {
-        this.reader = new CSVReader(reader);
-        this.writer = new CSVWriter(writer);
+    public CSVParser(String input, String output) {
+        try {
+            this.reader = new CSVReader(new FileReader(input));
+            this.writer = new CSVWriter(new FileWriter(output, false));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         records = new ArrayList<>();
         readFile();
         currentIdx = 0;
@@ -32,7 +38,6 @@ public class CSVParser implements Parser {
             String[] line;
             String[] header = reader.readNext();
             while ((line = reader.readNext()) != null) {
-                line[0] = convertScientificNotation(line[0]);
                 Map<String, String> record = new HashMap<>();
                 for (int i = 0; i < header.length; i++) {
                     record.put(header[i], line[i]);
@@ -44,15 +49,14 @@ public class CSVParser implements Parser {
         }
     }
 
-    private String convertScientificNotation(String scientificNotation) {
-        try {
-            BigDecimal value = new BigDecimal(scientificNotation);
-            return String.format("%.0f", value);
-        } catch (Exception e) {
-            return scientificNotation;
-        }
-    }
-
+//    private String convertScientificNotation(String scientificNotation) {
+//        try {
+//            BigDecimal value = new BigDecimal(scientificNotation);
+//            return String.format("%.0f", value);
+//        } catch (Exception e) {
+//            return scientificNotation;
+//        }
+//    }
 
 
 
