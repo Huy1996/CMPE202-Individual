@@ -26,7 +26,7 @@ public class XMLParser implements Parser{
     private final DocumentBuilderFactory dbFactory;
     private final DocumentBuilder dBuilder;
     private final Document doc;
-    private int currentRecordIndex;
+    private int currentIdx;
 
     public XMLParser(String input, String output){
         this.dbFactory = DocumentBuilderFactory.newInstance();
@@ -37,21 +37,21 @@ public class XMLParser implements Parser{
         } catch (ParserConfigurationException | SAXException | IOException e) {
             throw new RuntimeException(e);
         }
-        this.currentRecordIndex = 0;
+        this.currentIdx = 0;
     }
 
     @Override
     public Map<String, String> readRecord() {
         NodeList recordList = doc.getElementsByTagName("CARD");
-        if (currentRecordIndex < recordList.getLength()) {
-            Node recordNode = recordList.item(currentRecordIndex);
+        if (currentIdx < recordList.getLength()) {
+            Node recordNode = recordList.item(currentIdx);
             if (recordNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element recordElement = (Element) recordNode;
                 Map<String, String> recordMap = new HashMap<>();
                 recordMap.put("cardHolderName", recordElement.getElementsByTagName("CARD_HOLDER_NAME").item(0).getTextContent());
                 recordMap.put("cardNumber", recordElement.getElementsByTagName("CARD_NUMBER").item(0).getTextContent());
                 recordMap.put("expirationDate", recordElement.getElementsByTagName("EXPIRATION_DATE").item(0).getTextContent());
-                currentRecordIndex++;
+                currentIdx++;
                 return recordMap;
             }
         }

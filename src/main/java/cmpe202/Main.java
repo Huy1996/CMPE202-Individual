@@ -22,10 +22,6 @@ public class Main {
             processor.setEngine(new CSVParser(input, output));
             processor.setDtf(DateTimeFormatter.ofPattern("yy-MMM"));
         }
-        else if (ext.equals("xlsx")) {
-            processor.setEngine(new XLSXParser(input, output));
-            processor.setDtf(DateTimeFormatter.ofPattern("yy-MMM"));
-        }
         else if (ext.equals("json")) {
             processor.setEngine(new JSONParser(input, output));
             processor.setDtf(DateTimeFormatter.ofPattern("MM/yy"));

@@ -17,7 +17,7 @@ public class JSONParser implements Parser{
 
     private final ObjectMapper objectMapper;
     private FileWriter writer;
-    private Map<String, String>[] entries;;
+    private Map<String, String>[] records;
     private int currentIdx;
 
     public JSONParser(String input, String output){
@@ -40,7 +40,7 @@ public class JSONParser implements Parser{
             JsonNode jsonNode = objectMapper.readTree(new FileReader(input));
             if (jsonNode.has("cards") && jsonNode.get("cards").isArray()) {
                 JsonNode cards = jsonNode.get("cards");
-                this.entries = objectMapper.convertValue(cards, Map[].class);
+                this.records = objectMapper.convertValue(cards, Map[].class);
             }
 
             this.currentIdx = 0;
@@ -51,9 +51,9 @@ public class JSONParser implements Parser{
     }
     @Override
     public Map<String, String> readRecord() {
-        if (currentIdx < entries.length) {
+        if (currentIdx < records.length) {
             Map<String, String> currentRecord = new HashMap<>();
-            currentRecord.putAll(entries[currentIdx]);
+            currentRecord.putAll(records[currentIdx]);
             currentIdx++;
             return currentRecord;
         }
