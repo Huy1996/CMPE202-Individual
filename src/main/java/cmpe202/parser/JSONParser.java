@@ -13,14 +13,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class JSONParser implements Parser{
+public class JSONParser implements Parser {
 
     private final ObjectMapper objectMapper;
-    private FileWriter writer;
+    private final FileWriter writer;
     private Map<String, String>[] records;
     private int currentIdx;
 
-    public JSONParser(String input, String output){
+    public JSONParser(String input, String output) {
         this.objectMapper = new ObjectMapper();
         this.objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
@@ -49,6 +49,7 @@ public class JSONParser implements Parser{
             throw new RuntimeException(e);
         }
     }
+
     @Override
     public Map<String, String> readRecord() {
         if (currentIdx < records.length) {
@@ -64,11 +65,10 @@ public class JSONParser implements Parser{
     public void write(List<Map<String, String>> records) {
         ArrayNode arrayNode = objectMapper.createArrayNode();
         try {
-            for (Map<String, String> record: records) {
+            for (Map<String, String> record : records) {
                 ObjectNode objectNode = objectMapper.createObjectNode();
-                for (Map.Entry<String, String> entry : record.entrySet()) {
-                    objectNode.put(entry.getKey(), entry.getValue());
-                }
+                objectNode.put("cardNumber", record.get("cardNumber"));
+                objectNode.put("cardType", record.get("cardType"));
                 arrayNode.add(objectNode);
             }
             ObjectNode cardsNode = objectMapper.createObjectNode();

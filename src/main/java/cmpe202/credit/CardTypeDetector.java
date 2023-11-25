@@ -16,7 +16,7 @@ package cmpe202.credit;
 //    }
 //}
 
-class CardTypeDetector {
+public class CardTypeDetector {
     public static CardType detectCardType(String cardNumber) {
         if (cardNumber == null) return CardType.Unknown;
 
@@ -35,10 +35,4 @@ class CardTypeDetector {
 }
 
 
-enum CardType {
-    Visa,
-    Master,
-    Discover,
-    AmEx,
-    Unknown
-}
+
