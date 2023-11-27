@@ -18,8 +18,8 @@ import static org.junit.Assert.assertNotNull;
 
 public class XMLParserTest {
 
-    private static final String INPUT_FILE_PATH = "input.xml";
-    private static final String OUTPUT_FILE_PATH = "output.xml";
+    private static final String INPUT_FILE_PATH = "input_test.xml";
+    private static final String OUTPUT_FILE_PATH = "output_test.xml";
 
     private Parser xmlParser;
 
