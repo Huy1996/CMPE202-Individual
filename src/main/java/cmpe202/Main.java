@@ -20,13 +20,13 @@ public class Main {
         FileProcessor processor = new FileProcessor();
 
 
-        if (ext.equals("csv")) {
+        if ("csv".equals(ext)) {
             processor.setEngine(new CSVParser(input, output));
             processor.setDtf(DateTimeFormatter.ofPattern("yy-MMM"));
-        } else if (ext.equals("json")) {
+        } else if ("json".equals(ext)) {
             processor.setEngine(new JSONParser(input, output));
             processor.setDtf(DateTimeFormatter.ofPattern("MM/yy"));
-        } else if (ext.equals("xml")) {
+        } else if ("xml".equals(ext)) {
             processor.setEngine(new XMLParser(input, output));
             processor.setDtf(DateTimeFormatter.ofPattern("MM/yy"));
         }
